@@ -19,16 +19,13 @@ int main(void){
     sei();
     while(1)
     {
-        servo1_set_percentage(100);
-        _delay_ms(5000);
-
+        servo1_set_percentage(-20);
+        servo2_set_percentage(100);
 
         // servo1_set_percentage(45);
         // _delay_ms(5000);
 
 
-        servo1_set_percentage(0);
-        _delay_ms(5000);
 
  
         // servo1_set_percentage(-100);
