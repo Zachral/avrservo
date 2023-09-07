@@ -6,9 +6,12 @@
 #include "uart.h"
 #include "millis.h"
 #include "servo.h"
+#include "button.h"
 
 //https://wokwi.com/projects/364340216052770817
-
+void init_timer(){
+    T
+}
 
 // B (digital pin 8 to 13)
 // C (analog input pins)
@@ -16,11 +19,20 @@
 
 int main(void){
     init_servo();
+    button_init(); 
     sei();
-    while(1)
+    bool buttonIsClicked = false; 
+
+    if(BIT_CHECK(PINB, BUTTON_PIN)){
+        _delay_ms(50);
+        buttonIsClicked != buttonIsClicked;   
+    } 
+    while(buttonIsClicked)
     {
-        servo1_set_percentage(-20);
-        servo2_set_percentage(100);
+
+    
+    servo1_set_percentage(-20);
+    servo2_set_percentage(100);
 
         // servo1_set_percentage(45);
         // _delay_ms(5000);
