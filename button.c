@@ -2,8 +2,8 @@
 #include "button.h"
 
 void button_init(){
-    BIT_CLEAR(DDRB,BUTTON_PIN);
-    BIT_SET(PINB, BUTTON_PIN); 
+    BIT_CLEAR(DDRD,BUTTON_PIN);
+    BIT_SET(PORTD, BUTTON_PIN); 
     return; 
 }
 
@@ -18,7 +18,7 @@ uint8_t poll_btn(uint8_t number) {
 				if (integrator > 0) {
 					integrator--;
 				}
-			} else if (integrator < DEBOUNCECYCLES) {
+			} else if (integrator < DEBOUNCE_CYCLES) {
 				integrator++;
 			}
 			return(0);
@@ -29,8 +29,8 @@ uint8_t poll_btn(uint8_t number) {
 			if (integrator == 0) {
 				output = 0;
 			}
-			else if (integrator >= DEBOUNCECYCLES) {
-				integrator = DEBOUNCECYCLES;
+			else if (integrator >= DEBOUNCE_CYCLES) {
+				integrator = DEBOUNCE_CYCLES;
 				output = 1;
 			}
 			return(output);

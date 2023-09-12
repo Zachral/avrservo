@@ -8,31 +8,65 @@
 #include "servo.h"
 #include "button.h"
 
+#define DEBOUNCE_DELAY_MS 100
 //https://wokwi.com/projects/364340216052770817
-void init_timer(){
-    T
-}
+// void init_timer(){
+//     TCCR0A = 0;
+//     TCCR0B = 0;
+//     TCNT0 = 0; 
+//     TCCR0B |= 0b00000100; 
+//     //TIMSK0 |= 0b00000010;
+//     OCR0A = 312; 
+// }
 
-// B (digital pin 8 to 13)
-// C (analog input pins)
-// D (digital pins 0 to 7)
+// // B (digital pin 8 to 13)
+// // C (analog input pins)
+// // D (digital pins 0 to 7)
+
+// ISR(TIMER_COMPA_vect){
+//     TCNT1 = 0; 
+//     poll_btn(0);
+// }
 
 int main(void){
     init_servo();
     button_init(); 
+    // init_timer(); 
     sei();
-    bool buttonIsClicked = false; 
-
-    if(BIT_CHECK(PINB, BUTTON_PIN)){
-        _delay_ms(50);
-        buttonIsClicked != buttonIsClicked;   
-    } 
-    while(buttonIsClicked)
-    {
-
+    bool buttonWasPressed = false; 
+     BIT_SET(DDRD,3); 
+    // while(1){
     
-    servo1_set_percentage(-20);
-    servo2_set_percentage(100);
+    //     if(poll_btn(1)){
+    //         buttonIsClicked = true;
+    //         break;
+    //     }   
+    // }
+
+     while (1) {
+        if (BUTTON_IS_CLICKED(PIND,BUTTON_PIN)) {
+            // if (!buttonWasPressed) {
+                // Button press detected, wait for debouncing
+                _delay_ms(DEBOUNCE_DELAY_MS);
+                
+                // Check the button state again after debouncing
+                if (BUTTON_IS_CLICKED(PIND, BUTTON_PIN)) {
+                     buttonWasPressed = true;
+                    }
+                }
+
+        while(buttonWasPressed){
+            servo1_set_percentage(60);
+            servo2_set_percentage(60); 
+        }
+               // buttonWasPressed = true;
+            // }else{
+            //     //buttonWasPressed = false;
+            // } 
+
+        //}
+    // servo1_set_percentage(20);
+    // servo2_set_percentage(100);
 
         // servo1_set_percentage(45);
         // _delay_ms(5000);
