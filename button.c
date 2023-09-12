@@ -1,39 +1,29 @@
 #include <avr/io.h>
+#include <stdbool.h>
+#include <util/delay.h>
 #include "button.h"
 
 void button_init(){
+
+	TCCR2A = 0; 
+	TCCR2B = (1<<CS20) | (1<<CS21) | (1<<CS22); 
+	OCR2B = 250; 
+	TIMSK2 = (1<<OCIE2B); 
     BIT_CLEAR(DDRD,BUTTON_PIN);
     BIT_SET(PORTD, BUTTON_PIN); 
     return; 
 }
 
-uint8_t poll_btn(uint8_t number) {
-	static uint8_t integrator;
-	static uint8_t output;
-
-	switch(number) {
-		case 0 :
-			// Poll and integrate fire and set buttons
-			if ((BTNPORT & (1<<BUTTON_PIN))) {
-				if (integrator > 0) {
-					integrator--;
-				}
-			} else if (integrator < DEBOUNCE_CYCLES) {
-				integrator++;
+void buttonClick(volatile bool *buttonWasPressed){
+	printf("IM in!\n");
+	 if (BUTTON_IS_CLICKED(PIND,BUTTON_PIN)) {
+		// Button press detected, wait for debouncing
+		_delay_ms(DEBOUNCE_DELAY_MS);
+		
+		// Check the button state again after debouncing
+		if (BUTTON_IS_CLICKED(PIND, BUTTON_PIN)) {
+			*buttonWasPressed = true; 
 			}
-			return(0);
-
-		case 1 :
-			// If integrator is at threshhold, return 1
-			// If integrator is at 0, return 0
-			if (integrator == 0) {
-				output = 0;
-			}
-			else if (integrator >= DEBOUNCE_CYCLES) {
-				integrator = DEBOUNCE_CYCLES;
-				output = 1;
-			}
-			return(output);
-	}
-	return(0);
+		}
+	return; 
 }

@@ -9,8 +9,9 @@
 #define BTNPORT PIND
 #define BUTTON_PIN 2
 #define BUTTON_IS_CLICKED(PIND, BUTTON_PIN) !BIT_CHECK(PIND, BUTTON_PIN)
-#define DEBOUNCE_CYCLES 5
+#define DEBOUNCE_DELAY_MS 100
 
+
+void buttonClick(volatile bool *buttonWasPressed);
 void button_init();
-uint8_t poll_btn(uint8_t number); 
 #endif
