@@ -34,18 +34,8 @@ int main(void){
     // init_timer(); 
     sei();
     bool buttonWasPressed = false; 
-     BIT_SET(DDRD,3); 
-    // while(1){
-    
-    //     if(poll_btn(1)){
-    //         buttonIsClicked = true;
-    //         break;
-    //     }   
-    // }
-
      while (1) {
         if (BUTTON_IS_CLICKED(PIND,BUTTON_PIN)) {
-            // if (!buttonWasPressed) {
                 // Button press detected, wait for debouncing
                 _delay_ms(DEBOUNCE_DELAY_MS);
                 
@@ -59,23 +49,6 @@ int main(void){
             servo1_set_percentage(60);
             servo2_set_percentage(60); 
         }
-               // buttonWasPressed = true;
-            // }else{
-            //     //buttonWasPressed = false;
-            // } 
-
-        //}
-    // servo1_set_percentage(20);
-    // servo2_set_percentage(100);
-
-        // servo1_set_percentage(45);
-        // _delay_ms(5000);
-
-
-
- 
-        // servo1_set_percentage(-100);
-        // _delay_ms(1000);
     }
     return 0;
 }
