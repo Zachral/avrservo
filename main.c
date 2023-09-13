@@ -15,8 +15,17 @@
 // // D (digital pins 0 to 7)
 
 static volatile bool buttonWasPressed = false; 
+static volatile uint8_t overflowCount = 0;
 
- ISR(TIMER2_COMPB_vect){
+ISR(TIMER2_OVF_vect){
+    overflowCount++;
+    if(overflowCount > 200) // 80 amounts to 3,2 seconds 
+        overflowCount = 0; 
+}
+
+ISR(TIMER2_COMPB_vect){
+    //62 overflow flags amounts to one check every 0,99 seconds with the prescaler defined. 
+    if(overflowCount > 62)
         buttonClick(&buttonWasPressed); 
  }
 
