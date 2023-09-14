@@ -38,7 +38,7 @@ int main(void){
   
    while(1){
         while (buttonWasPressed) {
-            servo1_set_percentage(60);
+            servo1_set_percentage(-30);
             servo2_set_percentage(60); 
         }
     }
