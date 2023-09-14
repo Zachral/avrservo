@@ -1,6 +1,7 @@
 #ifndef _BUTTON_H__
 #define _BUTTON_H__
 #include <avr/io.h> 
+#include <stdbool.h>
 
 #define BIT_SET(a, b) ((a) |= (1ULL << (b)))
 #define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))

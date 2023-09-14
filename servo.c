@@ -13,25 +13,25 @@ ISR(TIMER1_OVF_vect)
 {
 	TCNT1 = RESET_VALUE;
  
-	PORT_1 |= (1<<PIN_1);
-	PORT_2 |= (1<<PIN_2);
+	SERVO_PORT |= (1<<LEFT_SERVO_PIN);
+	SERVO_PORT |= (1<<RIGHT_SERVO_PIN);
 }
  
 ISR(TIMER1_COMPA_vect)
 {
-	PORT_1 &= ~(1<<PIN_1);
+	SERVO_PORT &= ~(1<<LEFT_SERVO_PIN);
 }
  
 ISR(TIMER1_COMPB_vect)
 {
-	PORT_2 &= ~(1<<PIN_2);
+	SERVO_PORT &= ~(1<<RIGHT_SERVO_PIN);
 }
  
 void init_servo(void)
 {
 	// Config pins as output
-	DDR_1 |= (1<<PIN_1);
-	DDR_2 |= (1<<PIN_2);
+	SERVO_PORT_DIRECTION |= (1<<LEFT_SERVO_PIN);
+	SERVO_PORT_DIRECTION |= (1<<RIGHT_SERVO_PIN);
  
 	// Use mode 0, clkdiv = 8
 	TCCR1A = 0;
